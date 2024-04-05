@@ -3,3 +3,4 @@
 ## Tech
 
 - Typescript + Express
+- Golang
