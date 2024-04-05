@@ -34,8 +34,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       # Add CodeGuru Reviewer Action
       - name: Amazon CodeGuru Reviewer
@@ -44,7 +44,7 @@ jobs:
           # Build artifacts directory. Only required for Java
           build_path: target
           # S3 Bucket with "codeguru-reviewer-" prefix
-          s3_bucket: ${{ env.AWS_CODEGURU_REVIEWER_S3_BUCKET }}
+          s3_bucket: ${{ secrets.AWS_CODEGURU_REVIEWER_S3_BUCKET }}
 
       # Upload results to GitHub
       - name: Upload review results
