@@ -1,27 +1,35 @@
 import { Request, Response } from "express";
 
 export const home = (req: Request, res: Response) => {
-  var result: number = 0;
+  const currentTime = new Date().toLocaleTimeString();
+  const greeting = `Hello! The current time is ${currentTime}.`;
 
-  const recurAddValue = (offset: number): void => {
-    if (offset === 0) {
-      return;
-    }
-
-    result += 1;
-    return recurAddValue(offset - 1);
-  };
-
-  recurAddValue(100);
-  recurAddValue(100);
-  recurAddValue(100);
-  recurAddValue(100);
-  recurAddValue(100);
-  recurAddValue(100);
-
-  return res.status(200).send(`${result}`);
+  return res.status(200).send(greeting);
 };
 
 export const health = (req: Request, res: Response) => {
-  return res.status(200).json({ state: "healthy" });
+  const currentTime = new Date().toLocaleTimeString();
+
+  const serviceStatus = {
+    time: currentTime,
+    state: "healthy",
+  };
+
+  return res.status(200).json(serviceStatus);
+};
+
+export const additionalTask = (req: Request, res: Response) => {
+  const currentTime = new Date().toLocaleTimeString();
+  const resultOfAdditionalTask = performAdditionalTask();
+
+  const resultObject = {
+    time: currentTime,
+    additionalTaskResult: resultOfAdditionalTask,
+  };
+
+  return res.status(200).json(resultObject);
+};
+
+const performAdditionalTask = () => {
+  return Math.floor(Math.random() * 100);
 };
